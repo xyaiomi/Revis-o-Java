@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: content: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+    <script src="cordova.js"></script>
+    <script src="components/loader.js"></script>
+    <link rel="stylesheet" href="components/loader.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 360px;
+            margin: 30px auto;
+            padding: 0 16px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .botoes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        button {
+            padding: 14px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background: #3f51b5;
+            color: #fff;
+        }
+        button:active {
+            background: #303f9f;
+        }
+        #exibirResultado {
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        function calcular(operacao) {
+            const numero01 = parseFloat(document.getElementById('inputNumero01').value)
+            const numero02 = parseFloat(document.getElementById('inputNumero02').value)
+            const saida = document.getElementById('exibirResultado')
+
+            if (isNaN(numero01) || isNaN(numero02)) {
+                saida.innerHTML = 'Preencha os dois números'
+                return
+            }
+
+            let resultado
+            switch (operacao) {
+                case '+': resultado = numero01 + numero02; break
+                case '-': resultado = numero01 - numero02; break
+                case '*': resultado = numero01 * numero02; break
+                case '/':
+                    if (numero02 === 0) {
+                        saida.innerHTML = 'Não é possível dividir por zero'
+                        return
+                    }
+                    resultado = numero01 / numero02
+                    break
+            }
+
+            saida.innerHTML = 'Resultado: ' + resultado
+        }
+    </script>
+</head>
+<body>
+    <input type="number" id="inputNumero01" placeholder="Insira o primeiro número">
+    <input type="number" id="inputNumero02" placeholder="Insira o segundo número">
+
+    <div class="botoes">
+        <button onclick="calcular('+')">Somar</button>
+        <button onclick="calcular('-')">Subtrair</button>
+        <button onclick="calcular('*')">Multiplicar</button>
+        <button onclick="calcular('/')">Dividir</button>
+    </div>
+
+    <h2 id="exibirResultado"></h2>
+</body>
+</html>
